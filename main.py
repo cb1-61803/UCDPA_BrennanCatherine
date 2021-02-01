@@ -78,7 +78,7 @@ ed = mpatches.Patch(color= 'b', label='Education')
 hea = mpatches.Patch(color= 'g', label='Health')
 pop = mpatches.Patch(color= 'r', label='Population')
 watsan = mpatches.Patch(color= 'c', label='Water')
-gov = mpatches.Patch(color= 'y', label='Governanca')
+gov = mpatches.Patch(color= 'y', label='Governance')
 infra = mpatches.Patch(color= 'm', label='Infrastructure')
 
 
@@ -91,19 +91,49 @@ plt.show()
 #fig, ax = plt.subplots(3, 2)
 
 # Create a figure and an array of axes: 2 rows, 1 column with shared y axis
-fig, ax = plt.subplots(2, 1, sharey=True)
+#fig, ax = plt.subplots(3, 2, sharey=True)
 
-# Plot Seattle precipitation in the top axes
-ax[0].plot(seattle_weather["MONTH"], seattle_weather["MLY-PRCP-NORMAL"], color='b')
-ax[0].plot(seattle_weather["MONTH"], seattle_weather["MLY-PRCP-25PCTL"], color='b', linestyle='--')
-ax[0].plot(seattle_weather["MONTH"], seattle_weather["MLY-PRCP-75PCTL"], color='b', linestyle='--')
 
-# Plot Austin precipitation in the bottom axes
-ax[1].plot(austin_weather["MONTH"], austin_weather["MLY-PRCP-NORMAL"], color='r')
-ax[1].plot(austin_weather["MONTH"], austin_weather["MLY-PRCP-25PCTL"], color='r', linestyle='--')
-ax[1].plot(austin_weather["MONTH"], austin_weather["MLY-PRCP-75PCTL"], color='r', linestyle='--')
+#ax[0].plot(df_ed["Year"], df_ed["Value"], color='b', marker='o', linestyle='--')
+#ax.plot(df_hea["Year"], df_hea["Value"], color='g', marker='o', linestyle='--')
+#ax.plot(df_pop["Year"], df_pop["Value"], color='r', marker='o', linestyle='--')
+#ax.plot(df_watsan["Year"], df_watsan["Value"], color='c', marker='o', linestyle='--')
+#ax.plot(df_gov["Year"], df_gov["Value"], color='y', marker='o', linestyle='--')
+#ax.plot(df_infra["Year"], df_infra["Value"], color='m', marker='o', linestyle='--')
+
+
+
+#clean df df_ire_sec sector value year
+# Define a function called plot_timeseries
+def sector(axes, x, y, color, xlabel, ylabel):
+  # Plot the inputs x,y in the provided color
+  axes.plot(x, y, color=color)
+  # Set the x-axis label
+  axes.set_xlabel(xlabel)
+  # Set the y-axis label
+  axes.set_ylabel(ylabel, color=color)
+  # Set the colors tick params for y-axis
+  axes.tick_params('y', colors=color)
+
+
+fig, ax = plt.subplots()
+
+
+# Plot the CO2 levels time-series in blue
+sector(ax, df_ed ["Year"], df_ed['Value'], 'blue', "Year", "USD millions")
+
+# Create a twin Axes object that shares the x-axis
+ax2 = ax.twinx()
+
+# Plot the relative temperature data in red
+sector(ax2, df_pop["Year"], df_pop['Value'], 'red', "Year", "USD millions")
+
+ax.set_title("Education and Population/Reproductive Health")
 
 plt.show()
+
+
+
 outer_df =pd.merge(df_ed, df_hea, on='Year', how='outer')
 print(outer_df.head)
 labels = ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19']
