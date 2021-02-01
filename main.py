@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
+import matplotlib.patches as mpatches
 
 
 df = pd.read_csv('don_sector_10year.csv')
@@ -54,10 +55,58 @@ df_watsan = df_ire_sec.loc[(df_ire_sec ["Sector"] == 'I.4. Water Supply & Sanita
 df_gov = df_ire_sec.loc[(df_ire_sec ["Sector"] == 'I.5. Government & Civil Society')]
 df_infra = df_ire_sec.loc[(df_ire_sec ["Sector"] == 'I.6. Other Social Infrastructure & Services')]
 
+# Create a Figure and an Axes with plt.subplots
+fig, ax = plt.subplots()
 
+# Plot year against value
+ax.plot(df_ed["Year"], df_ed["Value"], color='b', marker='o', linestyle='--')
+ax.plot(df_hea["Year"], df_hea["Value"], color='g', marker='o', linestyle='--')
+ax.plot(df_pop["Year"], df_pop["Value"], color='r', marker='o', linestyle='--')
+ax.plot(df_watsan["Year"], df_watsan["Value"], color='c', marker='o', linestyle='--')
+ax.plot(df_gov["Year"], df_gov["Value"], color='y', marker='o', linestyle='--')
+ax.plot(df_infra["Year"], df_infra["Value"], color='m', marker='o', linestyle='--')
+# Customize the x-axis label
+ax.set_xlabel("Year")
+
+# Customize the y-axis label
+ax.set_ylabel("US Dollar, Millions, 2018")
+
+# Add the title
+ax.set_title("Ireland's ODA to Social Infrastructure & Services")
+
+ed = mpatches.Patch(color= 'b', label='Education')
+hea = mpatches.Patch(color= 'g', label='Health')
+pop = mpatches.Patch(color= 'r', label='Population')
+watsan = mpatches.Patch(color= 'c', label='Water')
+gov = mpatches.Patch(color= 'y', label='Governanca')
+infra = mpatches.Patch(color= 'm', label='Infrastructure')
+
+
+plt.legend(handles=[ed, hea, pop, watsan, gov,infra], prop={'size': 6})
+#plt.legend([df_ed, df_hea, df_pop, df_watsan, df_gov, df_infra],["Education", "Health", "Population", "Water", "Governance", "infrastructure"])
+#ax.legend()
+# Call the show function
+plt.show()
+
+#fig, ax = plt.subplots(3, 2)
+
+# Create a figure and an array of axes: 2 rows, 1 column with shared y axis
+fig, ax = plt.subplots(2, 1, sharey=True)
+
+# Plot Seattle precipitation in the top axes
+ax[0].plot(seattle_weather["MONTH"], seattle_weather["MLY-PRCP-NORMAL"], color='b')
+ax[0].plot(seattle_weather["MONTH"], seattle_weather["MLY-PRCP-25PCTL"], color='b', linestyle='--')
+ax[0].plot(seattle_weather["MONTH"], seattle_weather["MLY-PRCP-75PCTL"], color='b', linestyle='--')
+
+# Plot Austin precipitation in the bottom axes
+ax[1].plot(austin_weather["MONTH"], austin_weather["MLY-PRCP-NORMAL"], color='r')
+ax[1].plot(austin_weather["MONTH"], austin_weather["MLY-PRCP-25PCTL"], color='r', linestyle='--')
+ax[1].plot(austin_weather["MONTH"], austin_weather["MLY-PRCP-75PCTL"], color='r', linestyle='--')
+
+plt.show()
 outer_df =pd.merge(df_ed, df_hea, on='Year', how='outer')
 print(outer_df.head)
-labels = ['G1', 'G2', 'G3', 'G4', 'G5']
+labels = ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19']
 men_means = [20, 34, 30, 35, 27]
 women_means = [25, 32, 34, 20, 25]
 
