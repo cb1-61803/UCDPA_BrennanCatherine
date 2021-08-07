@@ -1,121 +1,122 @@
 import pandas as pd
+import re
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.patches as mpatches
 
-#import requests
-#response = requests.get('https://stats.oecd.org/SDMX-JSON/data/TABLE5/20005+20001+801+1+2+301+68+3+18+4+5+40+75+20+21+6+701+742+22+7+820+8+76+9+69+61+50+10+11+12+302+20002+918+20013+958+20022+20016+913+914+20015+915+20014+909+1019+906+1013+990+976+20021+988+940+971+959+948+807+974+967+963+923+964+966+928+1023+20012+20033+901+905+903+20034+1012+953+921+1024+1025+1020+1011+1311+811+1312+1313+1016+104+951+978+20006+611+72+62+82+613+552+83+84+45+77+87+566+765+55+576+21600+1625+1609+1601+1613+1620+1614+1615+1617+1618+1627+1616+1626+1607+1612+1619+1606+1610+1605+1621+1611+1622+1628+1624+20035+1602+1604+1603.100+110+111+112+113+114+120+121+122+130+140+150+151+152+160+200+210+220+230+240+250+300+310+311+312+313+320+321+322+323+331+332+400+410+430+450+500+510+520+530+600+700+720+730+740+998+1000.528.A+D/all?startTime=2010&endTime=2019&dimensionAtObservation=allDimensions&pid=3dc299d4-abc8-4258-8355-456214a41e4f')
-#print(response)
+import seaborn as sns
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 
 
-df = pd.read_csv('don_sector_10year.csv')
+import requests
+###response_API = requests.get('https://datastore.codeforiati.org/api/1/access/activity.csv?reporting-org=XM-DAC-21-1&reporting-org.type=10&start-date__gt=2015-01-01&end-date__lt=2020-12-31&stream=True')
+###print(response_API.status_code) import requests
+###response_API = requests.get('https://datastore.codeforiati.org/api/1/access/activity.csv?reporting-org=XM-DAC-21-1&reporting-org.type=10&start-date__gt=2015-01-01&end-date__lt=2020-12-31&stream=True')
+###print(response_API.status_code)
+
+
+
+
+
+
+df = pd.read_csv('Final_CRS_Data_2016.csv')
+#print(df[14])
+print(df.head())
+
 for column_name in df.columns:
     print(column_name)
-print('The DataFrame is :\n', df)
+#print('The DataFrame is :\n', df)
 #get dataframe shape
-shape = df.shape
-print('\nDataFrame Shape :', shape)
-print('\nNumber of rows :', shape[0])
-print('\nNumber of columns :', shape[1])
+#shape = df.shape
+#print('\nDataFrame Shape :', shape)
+#print('\nNumber of rows :', shape[0])
+#print('\nNumber of columns :', shape[1])
 #Print the values of df
-print(df.values)
+#print(df.values)
 # Print the column index of df
-print(df.columns)
+#print(df.columns)
 # Print the row index of df
-print(df.index)
-# Sort by Aid type
-print(df.sort_values('Aid type'))
-print(df.sort_values('Donor'))
+#print(df.index)
+
+df_first_check = df.replace(to_replace= "\w+\W\d+\W\d\d\s\w+\s\d+", value = 'Civil Society', regex = True)
+print(df_first_check.shape)
 
 
-df_don_sec_val_year = df[['Donor', "Sector", 'Value', 'Year','Amount type']]
-print(df_don_sec_val_year.head())
+###VCSF.2012.10 Year
+#string_check_df = df['CRS Identification N�', 'Short description / Project title'].copy(deep=True)
+#(string_check_df.head())
+#string_check_list = df.values.tolist(string_check_df)
+#print(string_check_list)
+#df[14].values.tolist()
+#print()
+#regex = r"\w+\W\d+\W\d\d\s\w+\s\d+"
+#for element, item in check1:
+    #if re.findall(regex,element):
+        #print("correction required: {variable}".format(variable = string))
 
-df_ire = df_don_sec_val_year.loc[(df_don_sec_val_year["Donor"] == 'Ireland')]
-#df_ire_1 = df_ire_at.drop_duplicates(subset ="Sector")
-df_ire_1 = df_ire.loc[(df_ire["Amount type"] == 'Constant Prices')]
-print(df_ire_1.head())
-df_ire_sec = df_ire_1[["Sector", 'Value', 'Year']]
+#target string =
+#res_string = re,sub(r"", replace with, target_string)
 
-print("df_ire_sec = Clean Data Set")
-print(df_ire_sec.head())
-print(df_ire_sec.values)
-print(df_ire_sec.shape)
+df16 = pd.read_csv('purpose_16.csv')
+df16['purpose'] = df16['purpose'].astype('int64')
+print(df16.head())
+index16 = df16.index
+print(len(index16))
+print(df16.dtypes)
+#countNaN= df16['purpose'].isna().sum
+#print(countNaN)
+#df161 = df16.replace(to_replace='\w*', value= NaN, regex=True)
 
-print("df_ire_ed = Test for Education")
-df_ire_ed = df_ire_sec.loc[(df_ire_sec["Sector"] == 'I.1. Education')]
-print(df_ire_ed.head())
-print(df_ire_ed.shape)
+df17 = pd.read_csv('purpose_17.csv')
+df17['purpose'] = df17['purpose'].astype('int64')
+print(df17.head())
+index17 = df17.index
+print(len(index17))
+print(df17.dtypes)
 
-df_ed = df_ire_ed[['Value', 'Year']]
-print(df_ed.head())
-print(df_ed.shape)
+df18 = pd.read_csv('purpose_18.csv')
+df18['purpose'] = df18['purpose'].astype('int64')
+print(df18.head())
+index18 = df18.index
+print(len(index18))
+print(df18.dtypes)
 
+df19 = pd.read_csv('purpose_19.csv')
+df19['purpose'] = df19['purpose'].astype('int64')
+print(df19.head())
+index19 = df19.index
+print(len(index19))
+print(df19.dtypes)
 
-df_hea = df_ire_sec.loc[(df_ire_sec["Sector"] == 'I.2. Health')]
-df_pop = df_ire_sec.loc[(df_ire_sec["Sector"] == 'I.3. Population Policies/Programmes & Reproductive Health')]
-df_watsan = df_ire_sec.loc[(df_ire_sec["Sector"] == 'I.4. Water Supply & Sanitation')]
-df_gov = df_ire_sec.loc[(df_ire_sec["Sector"] == 'I.5. Government & Civil Society')]
+df20 = pd.read_csv('purpose_20.csv')
+df20['purpose'] = df20['purpose'].astype('int64')
+print('\n###DF20 metadata:')
+print(df20.head())
+index20 = df20.index
+datatype_20 = df20.dtypes
+print(len(index20))
+print(datatype_20)
+#df20['purpose'] = pd.to_numeric(df20['purpose'])
+print(datatype_20)
 
-df_infra = df_ire_sec.loc[(df_ire_sec["Sector"] == 'I.6. Other Social Infrastructure & Services')]
+df_code_list = pd.read_csv('code_list.csv')
+df_code_list['purpose'] = df_code_list['purpose'].astype('int64')
+datatype_df_code_list = df_code_list.dtypes
+print('\n###Code List Head:')
+print(df_code_list.head())
+print('\n###Code List Datatype:')
+print(datatype_df_code_list)
 
-outer_df =pd.merge(df_ed, df_hea, on='Year', how='outer')
-print(outer_df.head)
-plt.show()
+df_code_list_20 = pd.merge(df_code_list, df20, how = 'left', on ="purpose")
+print('\n### Merge 1 head:')
+print(df_code_list_20.head())
+for column_name in df_code_list_20.columns:
+    print(column_name)
 
-#clean df df_ire_sec sector value year
+index_df_code_list_20 = df_code_list_20.index
+print(index_df_code_list_20)
 
-# Define a function
-def sector(axes, x, y, color, xlabel, ylabel):
-    axes.plot(x, y, color=color)
-    axes.set_xlabel(xlabel)
-    axes.set_ylabel(ylabel, color=color)
-    axes.tick_params('y', colors=color)
-
-
-
-fig, ax = plt.subplots()
-sector(ax, df_ed["Year"], df_ed['Value'], 'blue', "Year", "USD millions")
-ax2 = ax.twinx()
-sector(ax2, df_pop["Year"], df_pop['Value'], 'red', "Year", "USD millions")
-ax.set_title("Education and Population/Reproductive Health")
-#plt.show()
-
-# Figure and an Axes with plt.subplots
-fig, ax = plt.subplots()
-
-# Plot year against value
-ax.plot(df_ed["Year"], df_ed["Value"], color='b', marker='o', linestyle='--')
-ax.plot(df_hea["Year"], df_hea["Value"], color='g', marker='o', linestyle='--')
-ax.plot(df_pop["Year"], df_pop["Value"], color='r', marker='o', linestyle='--')
-ax.plot(df_watsan["Year"], df_watsan["Value"], color='c', marker='o', linestyle='--')
-ax.plot(df_gov["Year"], df_gov["Value"], color='y', marker='o', linestyle='--')
-ax.plot(df_infra["Year"], df_infra["Value"], color='m', marker='o', linestyle='--')
-ax.set_xlabel("Year")
-ax.set_ylabel("US Dollar, Millions, 2018")
-ax.set_title("Ireland's ODA to Social Infrastructure & Services")
-ed = mpatches.Patch(color= 'b', label='Education')
-hea = mpatches.Patch(color= 'g', label='Health')
-pop = mpatches.Patch(color= 'r', label='Population')
-watsan = mpatches.Patch(color= 'c', label='Water')
-gov = mpatches.Patch(color= 'y', label='Governance')
-infra = mpatches.Patch(color= 'm', label='Infrastructure')
-plt.legend(handles=[ed, hea, pop, watsan, gov, infra], prop={'size': 6})
-
-#plt.legend([df_ed, df_hea, df_pop, df_watsan, df_gov, df_infra],["Education", "Health", "Population", "Water", "Governance", "infrastructure"])
-#ax.legend()
-
-# figure and an array of axes: 2 rows, 1 column with shared y axis
-fig, ax = plt.subplots(3, 2, sharey='all')
-plt.legend(handles=[ed, hea, pop, watsan, gov, infra], prop={'size': 5},loc='upper right',)
-ax[0, 0].plot(df_ed["Year"], df_ed["Value"], color='b', marker='o', linestyle='--',)
-ax[0, 1].plot(df_hea["Year"], df_hea["Value"], color='g', marker='o', linestyle='--')
-ax[1, 0].plot(df_pop["Year"], df_pop["Value"], color='r', marker='o', linestyle='--')
-ax[1, 1].plot(df_watsan["Year"], df_watsan["Value"], color='c', marker='o', linestyle='--')
-ax[2, 0].plot(df_gov["Year"], df_gov["Value"], color='y', marker='o', linestyle='--')
-ax[2, 1].plot(df_infra["Year"], df_infra["Value"], color='m', marker='o', linestyle='--')
-
-plt.show()
 
