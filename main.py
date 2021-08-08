@@ -41,6 +41,13 @@ for column_name in df.columns:
 # Print the row index of df
 #print(df.index)
 ###count num of TIMES
+
+desc = df['Short description / Project title'].tolist()
+def total_occur():
+    for reg in desc:
+        print(re.findall("\w+\W\d+\W\d\d\s\w+\s\d+", reg))
+
+
 df_first_check = df.replace(to_replace= "\w+\W\d+\W\d\d\s\w+\s\d+", value = 'Civil Society', regex = True)
 print(df_first_check.shape)
 
