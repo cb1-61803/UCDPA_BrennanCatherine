@@ -138,6 +138,7 @@ print(df_code_list.head())
 print('\n###Code List Datatype:')
 print(datatype_df_code_list)
 
+###merge data with full code list###
 df_code_list_20 = pd.merge(df_code_list, df20, how = 'left', on ="purpose")
 print('\n### Merge 1 head:')
 print(df_code_list_20.head())
@@ -156,3 +157,10 @@ print('\n### Merge 16to20')
 print(df_16to20.head())
 for column_name in df_16to20.columns:
     print(column_name)
+
+print('\n### number of rows with missing data')
+print(df_16to20.isnull().any(axis = 1).sum())
+###drop empty rows
+df_16to20_minus_empty_rows = df_16to20.dropna(how='all')
+print('\n### new number of rows')
+print(df_16to20_minus_empty_rows.isnull().any(axis = 1).sum())
