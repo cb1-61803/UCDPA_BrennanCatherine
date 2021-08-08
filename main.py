@@ -40,7 +40,7 @@ for column_name in df.columns:
 #print(df.columns)
 # Print the row index of df
 #print(df.index)
-
+###count num of TIMES
 df_first_check = df.replace(to_replace= "\w+\W\d+\W\d\d\s\w+\s\d+", value = 'Civil Society', regex = True)
 print(df_first_check.shape)
 
@@ -118,5 +118,6 @@ for column_name in df_code_list_20.columns:
 
 index_df_code_list_20 = df_code_list_20.index
 print(index_df_code_list_20)
+
 
 
