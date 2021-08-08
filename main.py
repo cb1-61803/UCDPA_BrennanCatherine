@@ -26,8 +26,8 @@ df = pd.read_csv('Final_CRS_Data_2016.csv')
 #print(df[14])
 print(df.head())
 
-for column_name in df.columns:
-    print(column_name)
+#for column_name in df.columns:
+    #print(column_name)
 #print('The DataFrame is :\n', df)
 #get dataframe shape
 #shape = df.shape
@@ -43,9 +43,17 @@ for column_name in df.columns:
 ###count num of TIMES
 
 desc = df['Short description / Project title'].tolist()
-def total_occur():
-    for reg in desc:
-        print(re.findall("\w+\W\d+\W\d\d\s\w+\s\d+", reg))
+def list_to_string(d):
+    str_esc = ""
+    for element in d:
+        str_esc += element
+    return str_esc
+d = desc
+print(list_to_string(d))
+
+for reg in desc:
+    print('\n "### No. of Occurrences:" :')
+    print(re.findall("\w+\W\d+\W\d\d\s\w+\s\d+", reg))
 
 
 df_first_check = df.replace(to_replace= "\w+\W\d+\W\d\d\s\w+\s\d+", value = 'Civil Society', regex = True)
