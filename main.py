@@ -1,4 +1,5 @@
 import pandas as pd
+from functools import reduce
 import re
 import numpy as np
 import matplotlib
@@ -42,22 +43,30 @@ print(df.head())
 #print(df.index)
 ###count num of TIMES
 
-desc = df['Short description / Project title'].tolist()
-def list_to_string(d):
-    str_esc = ""
-    for element in d:
-        str_esc += element
-    return str_esc
-d = desc
-print(list_to_string(d))
+#desc = df['Short description / Project title'].tolist()
+#desc1 = desc.str()
+#desc = df['Short description / Project title'].apply(','.join)
+#def list_to_string(d):
+   #str_esc = ""
+    #for element in d:
+        #str_esc += element
+   #return str_esc
+#d = desc
+#print(list_to_string(d))
+#for item in desc:
+    #str(item)
+#str_esc = ""
+#for x in desc1:
+   # str_esc += '' + x
+#print (str_esc)
 
-for reg in desc:
-    print('\n "### No. of Occurrences:" :')
-    print(re.findall("\w+\W\d+\W\d\d\s\w+\s\d+", reg))
+#for reg in desc:
+    #print('\n "### No. of Occurrences:" :')
+    #print(len(re.findall("\w+\W\d+\W\d\d\s\w+\s\d+", reg))
 
 
-df_first_check = df.replace(to_replace= "\w+\W\d+\W\d\d\s\w+\s\d+", value = 'Civil Society', regex = True)
-print(df_first_check.shape)
+#df_first_check = df.replace(to_replace= "\w+\W\d+\W\d\d\s\w+\s\d+", value = 'Civil Society', regex = True)#
+#print(df_first_check.shape)
 
 
 ###VCSF.2012.10 Year
@@ -65,6 +74,10 @@ print(df_first_check.shape)
 #(string_check_df.head())
 #string_check_list = df.values.tolist(string_check_df)
 #print(string_check_list)
+
+
+
+
 #df[14].values.tolist()
 #print()
 #regex = r"\w+\W\d+\W\d\d\s\w+\s\d+"
@@ -134,5 +147,12 @@ for column_name in df_code_list_20.columns:
 index_df_code_list_20 = df_code_list_20.index
 print(index_df_code_list_20)
 
+df_code_list_1920 = pd.merge(df_code_list_20, df19, how = 'left', on ="purpose")
 
-
+dataframes_16to20 = [df_code_list_1920,df18, df17, df16]
+#df_16to20 = reduce(lamda, left, right : pd.merg(left, right, on = ['purpose'], how = 'outer'), dataframes_16to20)
+df_16to20 = reduce(lambda left,right: pd.merge(left,right,on='purpose', how='left'), dataframes_16to20)
+print('\n### Merge 16to20')
+print(df_16to20.head())
+for column_name in df_16to20.columns:
+    print(column_name)
