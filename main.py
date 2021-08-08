@@ -161,6 +161,27 @@ for column_name in df_16to20.columns:
 print('\n### number of rows with missing data')
 print(df_16to20.isnull().any(axis = 1).sum())
 ###drop empty rows
-df_16to20_minus_empty_rows = df_16to20.dropna(how='all')
-print('\n### new number of rows')
+df_16to20_minus_empty_rows = df_16to20.dropna(how='any', subset = ['2020','2019','2018','2017','2016'])
+print(df_16to20_minus_empty_rows.head())
+print('\n### new number of empty rows')
 print(df_16to20_minus_empty_rows.isnull().any(axis = 1).sum())
+
+print('\n### view empties')
+print(df_16to20_minus_empty_rows[df_16to20_minus_empty_rows.isnull().any(axis=1)])
+print(df_16to20_minus_empty_rows.iloc[:8, :8])
+df_16to20_draft1 = df_16to20_minus_empty_rows.drop('Clarifications / Additional notes on coverage', axis = 1)
+df_16to20_draft2 = [['purpose', '2016', '2017' , '2018', '2019', '2020', 'DESCRIPTION']]
+
+
+print(df_16to20_minus_empty_rows.iloc[0:8, 3:])
+print(df_16to20_minus_empty_rows.describe())
+#print(df_16to20_minus_empty_rows.groupby('purpose').size())
+#turn purpose back to string
+cut the data set by cutting back purpose
+transpose?
+
+
+#con
+
+
+
