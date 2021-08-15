@@ -188,25 +188,39 @@ print(df_16to20_amounts.dtypes)
 #df.plot(x='purpose', y='2020', kind = 'scatter')
 
 
-df_gen_env = pd.read_csv('Gen_Env 15_20_DATA.csv')
+df_gen_env = pd.read_csv('Gen_Env 15_20_DATA_2.csv')
 print(df_gen_env)
 for column_name in df_gen_env.columns:
     print(column_name)
 print(df_gen_env.dtypes)
 
+#df_gen_env = df_gen_env.iloc[:, : 7]
 df_gen_env['year'] = df_gen_env['year'].astype(str)
 df_gen_env['channel'] = df_gen_env['channel'].astype(str)
 df_gen_env['purposecode'] = df_gen_env['purposecode'].astype(str)
 df_gen_env['Sector'] = df_gen_env['Sector'].astype(str)
 df_gen_env['gender'] = df_gen_env['gender'].astype('bool')
 df_gen_env['environment'] = df_gen_env['environment'].astype('bool')
-df_gen_env['extended'] = df_gen_env['extended'].astype(float)
+
 df_gen_env_cl = df_gen_env.dropna( axis = 1)
-df_gen_env_clean = df_gen_env_cl.dropna(how='all')
+df_gen_env_clean = df_gen_env_cl.drop('int_channelcode', 1)
 print('\n###df_gen_env_clean')
 print(df_gen_env_clean.dtypes)
 print(df_gen_env_clean.shape)
 print(df_gen_env_clean.head)
+
+df_gen_env_clean.plot(x='year', y= 'extended', kind= 'scatter')
+plt.show()
+
+#df_gen_env_clean.plot(x=)
+
+
+sns.set_theme()
+gender_heat = sns.load_dataset('gender_ext_sec')
+gender_ext_sec = gender_heat.pivot('Sector', 'gen mark','extended')
+f, ax = plt.subplot(figsize=(9,6))
+sns.heatmap(gender_ext_sec, annot = True, fmt = 'd', linewidths = .5, ax=ax)
+
 
 
 
