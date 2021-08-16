@@ -9,7 +9,7 @@ import matplotlib.patches as mpatches
 import seaborn as sns
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-
+#from sklearn.cluster import kMeans
 
 import requests
 ###response_API = requests.get('https://datastore.codeforiati.org/api/1/access/activity.csv?reporting-org=XM-DAC-21-1&reporting-org.type=10&start-date__gt=2015-01-01&end-date__lt=2020-12-31&stream=True')
@@ -211,8 +211,12 @@ print(df_gen_env_clean.head)
 df_gen_env_clean.plot(x='year', y= 'extended', kind= 'scatter')
 plt.show()
 
+#df_gen_env_clean.plot(x='Sector', y= 'extended', kind= 'scatter')
+#plt.show()
 
-
+df_gen_env_clean_19 = df.loc[df_gen_env_clean['year'].isin('2019')]
+df_gen_env_clean_19.plot(x='Sector', y= 'extended', kind= 'scatter')
+plt.show()
 #sns.set_theme()
 #gender_ext_sec = df_gen_env_clean.pivot('Sector', 'gen mark','extended')
 #f, ax = plt.subplot(figsize=(9,6))
@@ -222,8 +226,20 @@ plt.show()
 #sns.relplot(x='gender', y = 'environment', hue = 'Sector', size = 'extended')
 #plt.show()
 
-sns.catplot(x='year', y = 'extended', huge = 'gender', kind = 'swarm', data = df_gen_env_clean)
-plt.show()
+#sns.catplot(x='year', y = 'extended', huge = 'gender', kind = 'swarm', data = df_gen_env_clean)
+#plt.show()
+
+#sns.violinplot(x= 'year', y = 'extended', data = df_gen_env_clean, inner = None)
+#plt.show()
+
+#sns.catplot(x= 'year', y = 'extended', data = df_gen_env_clean, Kind= 'bar' )
+#plt.show()
+
+
+#model = kMeans(n_clusters = 3)
+#model.fit(arr)
+#labels = model.predict(arr)
+#print(labels)
 
 
 
