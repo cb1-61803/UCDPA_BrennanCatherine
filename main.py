@@ -9,7 +9,8 @@ import matplotlib.patches as mpatches
 import seaborn as sns
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-#from sklearn.cluster import kMeans
+import sklearn
+from sklearn.cluster import KMeans
 
 import requests
 ###response_API = requests.get('https://datastore.codeforiati.org/api/1/access/activity.csv?reporting-org=XM-DAC-21-1&reporting-org.type=10&start-date__gt=2015-01-01&end-date__lt=2020-12-31&stream=True')
@@ -193,13 +194,14 @@ for column_name in df_gen_env.columns:
     print(column_name)
 print(df_gen_env.dtypes)
 
-#df_gen_env = df_gen_env.iloc[:, : 7]
+
 df_gen_env['year'] = df_gen_env['year'].astype(str)
 df_gen_env['channel'] = df_gen_env['channel'].astype(str)
 df_gen_env['purposecode'] = df_gen_env['purposecode'].astype(str)
 df_gen_env['Sector'] = df_gen_env['Sector'].astype(str)
 df_gen_env['gender'] = df_gen_env['gender'].astype('bool')
 df_gen_env['environment'] = df_gen_env['environment'].astype('bool')
+df_gen_env['extended'] = df_gen_env['extended'].astype('float')
 
 df_gen_env_cl = df_gen_env.dropna( axis = 1)
 df_gen_env_clean = df_gen_env_cl.drop('int_channelcode', 1)
@@ -208,15 +210,21 @@ print(df_gen_env_clean.dtypes)
 print(df_gen_env_clean.shape)
 print(df_gen_env_clean.head)
 
-df_gen_env_clean.plot(x='year', y= 'extended', kind= 'scatter')
+#df_gen_env_clean.plot(x='year', y= 'extended', kind= 'scatter')
+#plt.show()
+df_gen_env_clean2 = df_gen_env_clean[df_gen_env_clean['extended']> 5000000]
+df_gen_env_clean2.plot(x='year', y= 'extended', kind= 'line')
 plt.show()
 
 #df_gen_env_clean.plot(x='Sector', y= 'extended', kind= 'scatter')
 #plt.show()
 
-df_gen_env_clean_19 = df.loc[df_gen_env_clean['year'].isin('2019')]
-df_gen_env_clean_19.plot(x='Sector', y= 'extended', kind= 'scatter')
-plt.show()
+#df_gen_env_clean_19 = df.loc[df_gen_env_clean['year'].isin('2019')]
+##df_gen_env_clean_19.plot(x='Sector', y= 'extended', kind= 'scatter')
+#plt.show()
+
+#df_16to20_amounts.plot (x='year', y= 'extended', kind= 'scatter')
+#plt.show()
 #sns.set_theme()
 #gender_ext_sec = df_gen_env_clean.pivot('Sector', 'gen mark','extended')
 #f, ax = plt.subplot(figsize=(9,6))
@@ -235,11 +243,13 @@ plt.show()
 #sns.catplot(x= 'year', y = 'extended', data = df_gen_env_clean, Kind= 'bar' )
 #plt.show()
 
+mat = df_gen_env_clean.values
+km = sklearn.cluster.KMeans(n_clusters = 7)
+labels = km.labels_
 
-#model = kMeans(n_clusters = 3)
-#model.fit(arr)
-#labels = model.predict(arr)
-#print(labels)
+
+results = pd.DataFrame([df_gen_env_clean.index,labels]).T
+print(results)
 
 
 
