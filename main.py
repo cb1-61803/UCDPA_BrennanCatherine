@@ -4,7 +4,6 @@ import re
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
-import seaborn as sns
 import matplotlib.patches as mpatches
 
 import seaborn as sns
@@ -212,14 +211,25 @@ print(df_gen_env_clean.head)
 df_gen_env_clean.plot(x='year', y= 'extended', kind= 'scatter')
 plt.show()
 
-#df_gen_env_clean.plot(x=)
 
 
-sns.set_theme()
-gender_heat = sns.load_dataset('gender_ext_sec')
-gender_ext_sec = gender_heat.pivot('Sector', 'gen mark','extended')
-f, ax = plt.subplot(figsize=(9,6))
-sns.heatmap(gender_ext_sec, annot = True, fmt = 'd', linewidths = .5, ax=ax)
+#sns.set_theme()
+#gender_ext_sec = df_gen_env_clean.pivot('Sector', 'gen mark','extended')
+#f, ax = plt.subplot(figsize=(9,6))
+#sns.heatmap(gender_ext_sec, annot = True, fmt = 'd', linewidths = .5, ax=ax)
+#plt.show()
+#sns.set_theme(style = 'white')
+#sns.relplot(x='gender', y = 'environment', hue = 'Sector', size = 'extended')
+#plt.show()
+
+sns.catplot(x='year', y = 'extended', huge = 'gender', kind = 'swarm', data = df_gen_env_clean)
+plt.show()
+
+
+
+
+
+
 
 
 
