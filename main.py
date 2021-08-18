@@ -27,66 +27,64 @@ df = pd.read_csv('Final_CRS_Data_2016.csv')
 #print(df[14])
 print(df.head())
 
-#for column_name in df.columns:
-    #print(column_name)
-#print('The DataFrame is :\n', df)
+for column_name in df.columns:
+    print('The DataFrame is :\n', df)
 #get dataframe shape
-#shape = df.shape
-#print('\nDataFrame Shape :', shape)
-#print('\nNumber of rows :', shape[0])
-#print('\nNumber of columns :', shape[1])
+shape = df.shape
+print('\nDataFrame Shape :', shape)
+print('\nNumber of rows :', shape[0])
+print('\nNumber of columns :', shape[1])
 #Print the values of df
-#print(df.values)
-# Print the column index of df
-#print(df.columns)
+print(df.values)
+#Print the column index of df
+print(df.columns)
 # Print the row index of df
-#print(df.index)
+print(df.index)
 ###count num of TIMES
 
-#desc = df['Short description / Project title'].tolist()
-#desc1 = desc.str()
-#desc = df['Short description / Project title'].apply(','.join)
-#def list_to_string(d):
-   #str_esc = ""
-    #for element in d:
-        #str_esc += element
-   #return str_esc
-#d = desc
-#print(list_to_string(d))
-#for item in desc:
-    #str(item)
-#str_esc = ""
-#for x in desc1:
-   # str_esc += '' + x
-#print (str_esc)
+desc = df['Short description / Project title'].tolist()
+desc1 = desc.str()
+desc = df['Short description / Project title'].apply(','.join)
+def list_to_string(d):
+   str_esc = ""
+   for element in d:
+        str_esc += element
+   return str_esc
+d = desc
+print(list_to_string(d))
+for item in desc:
+    str(item)
+str_esc = ""
+for x in desc1:
+    str_esc += '' + x
+print (str_esc)
 
-#for reg in desc:
-    #print('\n "### No. of Occurrences:" :')
-    #print(len(re.findall("\w+\W\d+\W\d\d\s\w+\s\d+", reg))
-
-
-#df_first_check = df.replace(to_replace= "\w+\W\d+\W\d\d\s\w+\s\d+", value = 'Civil Society', regex = True)#
-#print(df_first_check.shape)
+for reg in desc:
+    print('\n "### No. of Occurrences:" :')
+    print(len(re.findall("\w+\W\d+\W\d\d\s\w+\s\d+", reg))
 
 
-###VCSF.2012.10 Year
-#string_check_df = df['CRS Identification N�', 'Short description / Project title'].copy(deep=True)
-#(string_check_df.head())
-#string_check_list = df.values.tolist(string_check_df)
-#print(string_check_list)
+df_first_check = df.replace(to_replace= "\w+\W\d+\W\d\d\s\w+\s\d+", value = 'Civil Society', regex = True)#
+print(df_first_check.shape)
 
+
+VCSF.2012.10 Yearstring_check_df = df['CRS Identification N�', 'Short description / Project title'].copy(deep=True)
+(string_check_df.head())
+string_check_list = df.values.tolist(string_check_df)
+print(string_check_list)
 
 
 
-#df[14].values.tolist()
-#print()
-#regex = r"\w+\W\d+\W\d\d\s\w+\s\d+"
-#for element, item in check1:
-    #if re.findall(regex,element):
-        #print("correction required: {variable}".format(variable = string))
 
-#target string =
-#res_string = re,sub(r"", replace with, target_string)
+df[14].values.tolist()
+print()
+regex = r"\w+\W\d+\W\d\d\s\w+\s\d+"
+for element, item in check1:
+    if re.findall(regex,element):
+        print("correction required: {variable}".format(variable = string))
+
+target string =
+res_string = re,sub(r"", replace with, target_string)
 
 df16 = pd.read_csv('purpose_16.csv')
 df16 = df16.astype('float64')
@@ -94,9 +92,9 @@ print(df16.head())
 index16 = df16.index
 print(len(index16))
 print(df16.dtypes)
-#countNaN= df16['purpose'].isna().sum
-#print(countNaN)
-#df161 = df16.replace(to_replace='\w*', value= NaN, regex=True)
+countNaN= df16['purpose'].isna().sum
+print(countNaN)
+df161 = df16.replace(to_replace='\w*', value= NaN, regex=True)
 
 df17 = pd.read_csv('purpose_17.csv')
 df17['purpose'] = df17.astype('float64')
@@ -146,9 +144,9 @@ print(df_code_list_20.head())
 for column_name in df_code_list_20.columns:
     print(column_name)
 
-#print(df_code_list_20.index())
+print(df_code_list_20.index())
 
-#df_code_list_1920 = pd.merge(df_code_list_20, df19, how = 'left', on ="purpose")
+df_code_list_1920 = pd.merge(df_code_list_20, df19, how = 'left', on ="purpose")
 
 dataframes_16to20 = [df_code_list_20, df19, df18, df17, df16]
 
@@ -210,47 +208,51 @@ print(df_gen_env_clean.dtypes)
 print(df_gen_env_clean.shape)
 print(df_gen_env_clean.head)
 
-#df_gen_env_clean.plot(x='year', y= 'extended', kind= 'scatter')
-#plt.show()
+df_gen_env_clean.plot(x='year', y= 'extended', kind= 'scatter')
+plt.show()
 df_gen_env_clean2 = df_gen_env_clean[df_gen_env_clean['extended']> 5000000]
 df_gen_env_clean2.plot(x='year', y= 'extended', kind= 'line')
 plt.show()
 
-#df_gen_env_clean.plot(x='Sector', y= 'extended', kind= 'scatter')
-#plt.show()
+df_gen_env_clean.plot(x='Sector', y= 'extended', kind= 'scatter')
+plt.show()
 
-#df_gen_env_clean_19 = df.loc[df_gen_env_clean['year'].isin('2019')]
-##df_gen_env_clean_19.plot(x='Sector', y= 'extended', kind= 'scatter')
-#plt.show()
+df_gen_env_clean_19 = df.loc[df_gen_env_clean['year'].isin('2019')]
+df_gen_env_clean_19.plot(x='Sector', y= 'extended', kind= 'scatter')
+plt.show()
 
-#df_16to20_amounts.plot (x='year', y= 'extended', kind= 'scatter')
-#plt.show()
-#sns.set_theme()
-#gender_ext_sec = df_gen_env_clean.pivot('Sector', 'gen mark','extended')
-#f, ax = plt.subplot(figsize=(9,6))
-#sns.heatmap(gender_ext_sec, annot = True, fmt = 'd', linewidths = .5, ax=ax)
-#plt.show()
-#sns.set_theme(style = 'white')
-#sns.relplot(x='gender', y = 'environment', hue = 'Sector', size = 'extended')
-#plt.show()
+df_16to20_amounts.plot (x='year', y= 'extended', kind= 'scatter')
+plt.show()
+sns.set_theme()
+gender_ext_sec = df_gen_env_clean.pivot('Sector', 'gen mark','extended')
+f, ax = plt.subplot(figsize=(9,6))
+sns.heatmap(gender_ext_sec, annot = True, fmt = 'd', linewidths = .5, ax=ax)
+plt.show()
+sns.set_theme(style = 'white')
+sns.relplot(x='gender', y = 'environment', hue = 'Sector', size = 'extended')
+plt.show()
 
-#sns.catplot(x='year', y = 'extended', huge = 'gender', kind = 'swarm', data = df_gen_env_clean)
-#plt.show()
+sns.catplot(x='year', y = 'extended', huge = 'gender', kind = 'swarm', data = df_gen_env_clean)
+plt.show()
 
-#sns.violinplot(x= 'year', y = 'extended', data = df_gen_env_clean, inner = None)
-#plt.show()
+sns.violinplot(x= 'year', y = 'extended', data = df_gen_env_clean, inner = None)
+plt.show()
 
-#sns.catplot(x= 'year', y = 'extended', data = df_gen_env_clean, Kind= 'bar' )
-#plt.show()
+sns.catplot(x= 'year', y = 'extended', data = df_gen_env_clean, Kind= 'bar' )
+plt.show()
 
 mat = df_gen_env_clean.values
 km = sklearn.cluster.KMeans(n_clusters = 7)
 labels = km.labels_
-
-
 results = pd.DataFrame([df_gen_env_clean.index,labels]).T
 print(results)
 
+import matplotlib.pyplot as plt
+from matplotlib import style
+style.use('ggplot')
+gen_as_np = df_gen_env_clean[df_gen_env_clean.columns['gender', 'sector','extended']].to_numpy()
+plt.scatter(gen_as_np['sector'],gen_as_np['extended'],c= gen_as_np['gender'])
+plt.show()
 
 
 
